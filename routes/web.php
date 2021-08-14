@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('products','ProductController' );
+Route::resource('colors','ColorController' );
+Route::resource('sizes','SizeController' );
+Route::resource('categories','CategoryController' );
+Route::resource('subcategories','SubCategoryController' );
