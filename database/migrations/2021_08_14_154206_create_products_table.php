@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->text('product_description');
             $table->string('product_brand')->nullable();
             $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('sub_category_id')->constrained('sub_categories');
             $table->timestamps();
         });
     }
