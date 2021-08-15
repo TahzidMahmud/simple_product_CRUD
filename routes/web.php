@@ -35,4 +35,5 @@ Route::resource('subcategories','SubCategoryController' )->except([
 ]);
 Route::get('/fetchsubcat/{id}','SubCategoryController@fetch_subcats');
 Route::get('/products/{product}/variants/edit','ProductVariantController@edit_variants')->name('product.variants.edit');
+Route::get('/products/{product}/variants/create','ProductVariantController@create')->name('product.variants.create');
 Route::get('/products/{product}/variants','ProductVariantController@fetch_variants')->name('product.variants');

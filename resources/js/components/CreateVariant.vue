@@ -201,7 +201,18 @@ export default {
             axios.post(`/product_variants`,formData,{ headers: {
                     'Content-Type': 'multipart/form-data'
                 }}).then((res)=>{
+                     this.$alert(
+                        res.data.message,
+                        "",
+                        "success"
+                        );
                     this.variants.push(res.data.variant);
+                    this.product_id=null;
+                    this.size="";
+                    this.color="";
+                    this.price=0;
+                    this.image="";
+                    this.quantity=0;
                 }).catch((err)=>console.log(err))
       }
 

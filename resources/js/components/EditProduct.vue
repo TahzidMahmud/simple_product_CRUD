@@ -188,6 +188,11 @@ export default {
                 'category_id':this.category,
                 'sub_category_id':this.sub_category
             },{}).then((res)=>{
+                 this.$alert(
+                        res.data.message,
+                        "",
+                        "success"
+                        );
                 this.product=res.data.product
             }).then((err)=>console.log(err))
 

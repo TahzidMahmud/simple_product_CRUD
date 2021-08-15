@@ -25,6 +25,8 @@
 
                 <a href="{{ route('products.edit',$product->id) }}" class="btn btn-primary">Edit Product</a>
                 <a href="{{ route('product.variants.edit',$product->id) }}" class="btn btn-secondary">Edit Variants</a>
+                <a href="{{ route('product.variants.create',$product->id) }}" class="btn btn-success">Create A Variant</a>
+
                 </div>
             </div>
         @empty

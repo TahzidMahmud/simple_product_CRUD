@@ -89,7 +89,9 @@ class ProductController extends Controller
             'category_id'=>'required',
             'sub_category_id'=>'required'
         ])->validate();
-        $product->update($validator);
+        $res=$product->update($validator);
+        return response(["message"=>"Updated Successfully","product"=>$res]);
+
     }
 
     /**

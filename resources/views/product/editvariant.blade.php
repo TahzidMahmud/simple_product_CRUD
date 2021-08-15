@@ -1,7 +1,16 @@
 @extends('layouts.theme')
 @section('content')
+<div class="card-body">
+    @if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+@endif
+
+    {{-- {{ __('You are logged in!') }} --}}
+</div>
 <h1>Edit Variant</h1>
-<form action="/product_variants/{{ $productVariant->id }}">
+<form action="/product_variants/{{ $productVariant->id }}" method="POST" enctype="multipart/form-data">
     @method('PUT')
     @csrf
 
@@ -25,12 +34,24 @@
     </div>
     <div class="form-group">
         <label >Price</label>
-        <input type="number" class="form-control" name="productVariant_price" value="{{ $productVariant->variant_price}}">
+        <input type="number" class="form-control" name="variant_price" value="{{ $productVariant->variant_price}}">
     </div>
     <div class="form-group">
         <label >Quantity</label>
-        <input type="number"  class="form-control" name="productVariant_qty" value="{{ $productVariant->variant_qty}}">
+        <input type="number"  class="form-control" name="variant_qty" value="{{ $productVariant->variant_qty}}">
     </div>
-    <button type="submit" class="btn btn-primary">Update</button>
+
+    <div class="row">
+        <div class=" form-group col-md-6">
+            <label >Current Image</label>
+            <img style="height: 7rem;width;7rem;" src="{{ asset('images/products/'.$productVariant->product_id.'/'.$productVariant->variant_image) }}" alt="">
+        </div>
+        <div class="form-group col-md-6">
+            <label >New Image</label>
+            <input type="file"  name="variant_image" class="form-control"  value="{{ $productVariant->variant_image}}">
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary form-control">Update</button>
   </form>
 @endsection

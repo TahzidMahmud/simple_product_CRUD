@@ -8,6 +8,7 @@ use App\Size;
 use App\color;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 class ProductVariantController extends Controller
 {
     /**
@@ -25,9 +26,10 @@ class ProductVariantController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Product $product)
     {
-        //
+
+        return view('product.createVariant',compact('product'));
     }
 
     /**
@@ -62,7 +64,7 @@ class ProductVariantController extends Controller
             'variant_image' => $imageName,
         ]);
 
-        return response(["variant"=>$variant]);
+        return response(["message"=>"Created Successfully","variant"=>$variant]);
 
     }
 
@@ -103,7 +105,30 @@ class ProductVariantController extends Controller
      */
     public function update(Request $request, ProductVariant $productVariant)
     {
-        dd($request);
+        // dd($request);
+        $validator=Validator::make($request->all(), [
+            'color_id'=>'required',
+            'variant_price'=>'required',
+            'size_id'=>'required',
+            'variant_qty'=>'required',
+        ])->validate();
+        $imageName=$productVariant->variant_image;
+            if( $request->file('variant_image')){
+                Storage::delete(public_path('images/products/'.$productVariant->product_id.'/'.$productVariant->variant_image));
+                $imageName = time().'.'.$request->file('variant_image')->extension();
+                $request->file('variant_image')->move(public_path('images/products/'.$productVariant->product_id.'/'), $imageName);
+            }
+
+        $res=$productVariant->update([
+            'color_id'=>$request->color_id,
+            'variant_price'=>$request->variant_price,
+            'size_id'=>$request->size_id,
+            'variant_qty'=>$request->variant_qty,
+            'variant_image'=>$imageName
+
+        ]);
+        return redirect()->back()->with('message', 'Updated successfully!');
+
     }
 
     /**

@@ -37,7 +37,8 @@ Vue.component(
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+import VueSimpleAlert from "vue-simple-alert";
+Vue.use(VueSimpleAlert);
 const app = new Vue({
     el: "#app"
 });
