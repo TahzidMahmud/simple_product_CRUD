@@ -43,7 +43,7 @@ class CategoryController extends Controller
                 'name' => 'required|max:255',
             ])->validate();
         $category=Category::create($validator);
-        return response(["category"=>$category]);
+        return response(["message"=>"Created Successfully","category"=>$category]);
 
     }
 

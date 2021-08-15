@@ -163,6 +163,11 @@ export default {
             formData.append('name',this.clr_name);
             formData.append('color_code',this.clr_code);
             axios.post(`/colors`,formData).then((res)=>{
+                 this.$alert(
+                        res.data.message,
+                        "",
+                        "success"
+                        );
                this.colors.push(res.data.Color);
                 this.clrActive=!this.clrActive;
             }).catch((err)=>console.log(err))
@@ -174,6 +179,11 @@ export default {
             formData.append('name',this.size_name);
             formData.append('description',this.size_desc);
             axios.post(`/sizes`,formData).then((res)=>{
+                 this.$alert(
+                        res.data.message,
+                        "",
+                        "success"
+                        );
               this.sizes.push(res.data.Size);
                this.sizeActive=!this.sizeActive;
             }).catch((err)=>console.log(err))

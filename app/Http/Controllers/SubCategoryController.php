@@ -42,7 +42,7 @@ class SubCategoryController extends Controller
             'category_id'=>'required'
         ])->validate();
     $sub_category=SubCategory::create($validator);
-    return response(["sub_category"=>$sub_category]);
+    return response(["message"=>"Created Successfully","sub_category"=>$sub_category]);
     }
 
     /**

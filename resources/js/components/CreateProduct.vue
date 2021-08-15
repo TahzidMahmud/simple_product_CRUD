@@ -200,8 +200,14 @@ export default {
             formData.append('name',this.newcat);
             formData.append('description',this.catdesc);
             axios.post(`/categories`,formData).then((res)=>{
+                this.$alert(
+                        res.data.message,
+                        "",
+                        "success"
+                        );
                         this.categories.push(res.data.category);
                         this.catActive=false;
+
                     }).catch((err)=>{
                         console.log(err)
                         this.errors.push("Please Fill Required fields")
@@ -213,6 +219,11 @@ export default {
             formData.append('description',this.subcat_desc);
             formData.append('category_id',this.scategory);
             axios.post(`/subcategories`,formData).then((res)=>{
+                this.$alert(
+                        res.data.message,
+                        "",
+                        "success"
+                        );
                         this.sub_categories.push(res.data.sub_category);
                         this.subcatActive=false;
                     }).catch((err)=>{

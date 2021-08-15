@@ -44,7 +44,7 @@ class SizeController extends Controller
             'description' => 'required',
         ])->validate();
         $Size=Size::create($validator);
-        return response(["Size"=>$Size]);
+        return response(["message"=>"Created Successfully","Size"=>$Size]);
     }
 
     /**

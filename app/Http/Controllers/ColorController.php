@@ -42,7 +42,7 @@ class ColorController extends Controller
 
         ])->validate();
         $Color=Color::create($validator);
-        return response(["Color"=>$Color]);
+        return response(["message"=>"Created Successfully","Color"=>$Color]);
     }
 
     /**

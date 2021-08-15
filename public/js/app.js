@@ -2167,6 +2167,8 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('name', this.newcat);
       formData.append('description', this.catdesc);
       axios.post("/categories", formData).then(function (res) {
+        _this4.$alert(res.data.message, "", "success");
+
         _this4.categories.push(res.data.category);
 
         _this4.catActive = false;
@@ -2184,6 +2186,8 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('description', this.subcat_desc);
       formData.append('category_id', this.scategory);
       axios.post("/subcategories", formData).then(function (res) {
+        _this5.$alert(res.data.message, "", "success");
+
         _this5.sub_categories.push(res.data.sub_category);
 
         _this5.subcatActive = false;
@@ -2383,6 +2387,8 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('name', this.clr_name);
       formData.append('color_code', this.clr_code);
       axios.post("/colors", formData).then(function (res) {
+        _this3.$alert(res.data.message, "", "success");
+
         _this3.colors.push(res.data.Color);
 
         _this3.clrActive = !_this3.clrActive;
@@ -2398,6 +2404,8 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('name', this.size_name);
       formData.append('description', this.size_desc);
       axios.post("/sizes", formData).then(function (res) {
+        _this4.$alert(res.data.message, "", "success");
+
         _this4.sizes.push(res.data.Size);
 
         _this4.sizeActive = !_this4.sizeActive;
