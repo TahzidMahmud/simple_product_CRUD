@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SubCategoryController extends Controller
 {
@@ -35,7 +36,13 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validator=Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'category_id'=>'required'
+        ])->validate();
+    $sub_category=SubCategory::create($validator);
+    return response(["sub_category"=>$sub_category]);
     }
 
     /**
@@ -81,5 +88,9 @@ class SubCategoryController extends Controller
     public function destroy(SubCategory $subCategory)
     {
         //
+    }
+    public function fetch_subcats($id){
+        $subcats=SubCategory::where('category_id',$id)->get();
+        return response(["subcats"=>$subcats]);
     }
 }

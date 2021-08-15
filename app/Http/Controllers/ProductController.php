@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -14,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-
+        $products=Product::all();
+        // dd($products[0]->variants);
+        return view('product.products',compact('products'));
     }
 
     /**
@@ -35,7 +38,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $validator=Validator::make($request->all(), [
+            'product_name' => 'required|max:255',
+            'product_description'=>'required',
+            'product_brand' => 'max:255',
+            'category_id'=>'required',
+            'sub_category_id'=>'required'
+        ])->validate();
+    $product=Product::create($validator);
+    return response(["product"=>$product]);
     }
 
     /**
@@ -57,7 +69,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+
+        return view('product.edit',compact('product'));
     }
 
     /**
@@ -69,7 +82,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validator=Validator::make($request->all(), [
+            'product_name' => 'required|max:255',
+            'product_description'=>'required',
+            'product_brand' => 'max:255',
+            'category_id'=>'required',
+            'sub_category_id'=>'required'
+        ])->validate();
+        $product->update($validator);
     }
 
     /**

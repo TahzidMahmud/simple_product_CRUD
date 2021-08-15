@@ -13,12 +13,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','ProductController@index')->name('home');
 
-Route::resource('products','ProductController' );
-Route::resource('colors','ColorController' );
-Route::resource('sizes','SizeController' );
-Route::resource('categories','CategoryController' );
-Route::resource('subcategories','SubCategoryController' );
+Route::resource('products','ProductController' )->except([
+    'index'
+]);;
+Route::resource('colors','ColorController' )->except([
+    'create'
+]);
+Route::resource('product_variants','ProductVariantController' )->except([
+    'create','index'
+]);
+Route::resource('sizes','SizeController' )->except([
+    'create'
+]);
+Route::resource('categories','CategoryController' )->except([
+    'create'
+]);
+Route::resource('subcategories','SubCategoryController' )->except([
+    'index','create'
+]);
+Route::get('/fetchsubcat/{id}','SubCategoryController@fetch_subcats');
+Route::get('/products/{product}/variants/edit','ProductVariantController@edit_variants')->name('product.variants.edit');
+Route::get('/products/{product}/variants','ProductVariantController@fetch_variants')->name('product.variants');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class SizeController extends Controller
 {
@@ -14,7 +15,9 @@ class SizeController extends Controller
      */
     public function index()
     {
-        //
+        $sizes=Size::all();
+
+        return response(["sizes"=>$sizes]);
     }
 
     /**
@@ -35,7 +38,13 @@ class SizeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $validator=Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'description' => 'required',
+        ])->validate();
+        $Size=Size::create($validator);
+        return response(["Size"=>$Size]);
     }
 
     /**

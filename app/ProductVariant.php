@@ -16,15 +16,15 @@ class ProductVariant extends Model
     ];
     public function size()
     {
-        return $this->hasOne('App\Size');
+        return $this->hasOne('App\Size','id','size_id');
     }
 
-    public function colors()
+    public function color()
     {
-        return $this->hasOne('App\Color');
+        return $this->hasOne('App\Color','id','color_id');
     }
     public function product()
     {
-        return $this->belongsTo('App\Product');
+        return $this->belongsTo('App\Product','product_id','id');
     }
 }

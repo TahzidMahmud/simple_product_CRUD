@@ -1,8 +1,8 @@
 <template>
     <div >
-        <div v-if="!product">
-            <h1 class="text text-center m-4">Create New Product</h1>
-            <form  @submit="productSubmition">
+        <div >
+            <h1 class="text text-center m-4">Edit Product</h1>
+            <form  @submit="productUpdate">
                 <div class="row">
                     <div class="form-group col-md-8">
                         <label for="exampleFormControlInput1">Product Name</label>
@@ -44,7 +44,7 @@
                     <label for="exampleFormControlTextarea1">Product Description</label>
                     <textarea class="form-control" v-model="p_description" required id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
-                <button class="btn btn-primary form-control" type="submit">Submit</button>
+                <button class="btn btn-primary form-control" type="submit">Update</button>
             </form>
             <div >
                     <div :class="[catActive ? 'active' : '', !catActive ? 'notActive' : '']" >
@@ -118,20 +118,30 @@
 
                     </div>
             </div>
-        </div>
-        <div v-else>
-            <create-variant :product="product"></create-variant>
-        </div>
+        </div><hr>
+
+
+
+
+
     </div>
 
 </template>
 
 <script>
 import CreateVariant from './CreateVariant.vue';
+import EditVariant from './EditVariant.vue';
 export default {
-  components: { CreateVariant },
+  components: { CreateVariant, EditVariant },
+  props:{
+        selected_product:{
+            type:Object,
+            default:[]
+        },
+    },
     data: () => ({
-       product:null,
+        product_id:null,
+       s_product:null,
        categories:[],
        sub_categories:[],
        category:"",
@@ -154,20 +164,30 @@ export default {
             this.get_subCategories(val);
         },
     },
+    created(){
 
+    },
     mounted(){
         this.get_categories();
+        this.s_product=this.$props.selected_product;
+        this.p_name=this.s_product.product_name;
+        this.p_description=this.s_product.product_description;
+        this.category=this.s_product.category_id;
+        this.sub_category=this.s_product.sub_category_id;
+        this.brand=this.s_product.product_brand;
+        this.product_id=this.s_product.id;
     },
     methods:{
-        productSubmition(e){
+        productUpdate(e){
             e.preventDefault();
-            let formData = new FormData();
-            formData.append('product_name',this.p_name);
-            formData.append('product_description',this.p_description);
-            formData.append('product_brand',this.brand);
-            formData.append('category_id',this.category);
-            formData.append('sub_category_id',this.sub_category);
-            axios.post(`/products`,formData).then((res)=>{
+
+            axios.put(`/products/${this.s_product.id}`,{
+                'product_name':this.p_name,
+                'product_description':this.p_description,
+                'product_brand':this.brand,
+                'category_id':this.category,
+                'sub_category_id':this.sub_category
+            },{}).then((res)=>{
                 this.product=res.data.product
             }).then((err)=>console.log(err))
 
@@ -220,9 +240,6 @@ export default {
                         this.errors.push("Please Fill Required fields")
                         })
             },
-
-
-
 
     }
 

@@ -12,7 +12,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'product_name', 'product_description', 'product_brand','category_id'
+        'product_name', 'product_description', 'product_brand','category_id','sub_category_id'
     ];
 
     public function category()
@@ -25,6 +25,6 @@ class Product extends Model
     }
     public function variants()
     {
-        return $this->hasMany('App\ProductVariant');
+        return $this->hasMany('App\ProductVariant','product_id','id');
     }
 }

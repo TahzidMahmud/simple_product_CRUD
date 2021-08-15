@@ -19,7 +19,12 @@
 
     </head>
     <body>
+
         <div class="container" id="app">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="{{ route('home') }}">Products</a>
+
+              </nav>
             @yield('content')
         </div>
 

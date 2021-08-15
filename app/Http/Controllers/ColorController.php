@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Color;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class ColorController extends Controller
 {
     /**
@@ -14,7 +14,9 @@ class ColorController extends Controller
      */
     public function index()
     {
-        //
+        $colors=Color::all();
+
+        return response(["colors"=>$colors]);
     }
 
     /**
@@ -35,7 +37,12 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator=Validator::make($request->all(), [
+            'name' => 'required|max:255',
+
+        ])->validate();
+        $Color=Color::create($validator);
+        return response(["Color"=>$Color]);
     }
 
     /**

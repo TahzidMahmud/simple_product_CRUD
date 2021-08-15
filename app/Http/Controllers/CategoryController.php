@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -14,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories=Category::all();
+
+        return response(["categories"=>$categories]);
     }
 
     /**
@@ -35,7 +38,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validator=Validator::make($request->all(), [
+                'name' => 'required|max:255',
+            ])->validate();
+        $category=Category::create($validator);
+        return response(["category"=>$category]);
+
     }
 
     /**
