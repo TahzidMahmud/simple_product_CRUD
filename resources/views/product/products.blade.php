@@ -17,7 +17,7 @@
                 <h6>Variants : {{ $product->variants->count() }}</h6>
                     @forelse ($product->variants as $variant)
                         <div class="d-flex justify-content-between">
-                            <span class="m-2">{{ $variant->size->name }} - {{ $variant->color->name }} </span><span class="m-2">Price : {{ $variant->variant_price}}</span><span class="m-2">Quantity : {{ $variant->variant_qty}}</span>
+                            <span class="m-2">{{ $variant->size->name }} - {{ $variant->color->name }} (Size-Color)</span><span class="m-2">Price : {{ $variant->variant_price}}</span><span class="m-2">Quantity : {{ $variant->variant_qty}}</span>
                         </div>
                     @empty
 
