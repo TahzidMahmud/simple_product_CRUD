@@ -6,7 +6,7 @@
 </div>
     <div class="row">
         @forelse ($products as $product)
-            <div class="col-md-4"></div>
+            {{-- <div class="col-md-4"></div> --}}
             <div class="card m-4" style="width: 30rem;">
                 <div class="card-body">
                 <h5 class="card-title">{{ $product->product_name }}</h5>
@@ -32,5 +32,13 @@
         @empty
             <h1 class="text-danger">No Products..!!</h1>
         @endforelse
+
+    </div>
+
+    <div class="row">
+       <div class="col-md-6"></div>
+       <div class="col-md-4">
+            {{ $products->links() }}
+       </div>
     </div>
 @endsection
